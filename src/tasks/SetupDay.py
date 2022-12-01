@@ -1,71 +1,35 @@
-from datetime import date
 from pathlib import Path
-import requests
-import os
-from dotenv import load_dotenv
 
-DEBUG = 0
-INFO = 1
-WARN = 2
-ERROR = 3
-
-
-def get_date():
-    return date.today().day
-
-
-def get_year():
-    return date.today().year
-
-
-class Logger:
-    def __init__(self, log_lvl=INFO):
-        self.log_lvl = log_lvl
-
-    def log(self, msg, lvl=INFO):
-        if lvl >= self.log_lvl:
-            print(msg)
-
-    def debug(self, msg):
-        self.log(msg=msg, lvl=DEBUG)
-
-    def info(self, msg):
-        self.log(msg=msg, lvl=INFO)
-
-    def warn(self, msg):
-        self.log(msg=msg, lvl=WARN)
-
-    def error(self, msg):
-        self.log(msg=msg, lvl=ERROR)
-
-    def always_log(self, msg):
-        self.log(msg=msg, lvl=99)
+from src.utils.Logger import Logger
+from src.utils.aoc_request import fetch_aoc_content
+from src.utils.paths import get_day_path, get_root_path, get_template_path, get_year_path
 
 
 class SetupDay(Logger):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, year, day, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.date = get_date()
-        self.year = get_year()
+        self.root_path = None
+        self.day = day
+        self.year = year
         self.setup_skeleton()
         self.load_input()
         self.log_todays_url()
         self.always_log('Done!')
 
     def get_root_path(self):
-        return Path(Path(__file__).parent.resolve())
-
-    def get_template_path(self):
-        return Path(self.get_root_path(), 'template.py')
+        if not self.root_path:
+            self.debug(f'setting root-path: {self.root_path}')
+            self.root_path = get_root_path()
+        return self.root_path
 
     def get_year_path(self):
-        return Path(self.get_root_path(), f'year{self.year}')
+        return get_year_path(year=self.year)
 
     def get_today_path(self):
-        return Path(self.get_year_path(), f'day{self.date:02}')
+        return get_day_path(year=self.year, day=self.day)
 
     def log_todays_url(self):
-        url = f'https://adventofcode.com/{self.year}/day/{self.date}'
+        url = f'https://adventofcode.com/{self.year}/day/{self.day}'
         self.always_log(f'For today\'s challenge, see: {url}')
 
     def make_year_folder(self):
@@ -85,7 +49,7 @@ class SetupDay(Logger):
             Path.mkdir(today_path)
 
     def get_template(self):
-        template_path = self.get_template_path()
+        template_path = get_template_path()
         self.debug(f'reading template from {template_path}')
         with open(template_path, 'r') as f:
             template = f.read()
@@ -109,13 +73,8 @@ class SetupDay(Logger):
         self.make_main_py_file()
 
     def fetch_input_content(self):
-        url = f'https://adventofcode.com/{self.year}/day/{self.date}/input'
-        session = os.getenv('AOC_SESSION', None)
-        cookies = {
-            'session': session
-        }
-        self.debug(f'Reading from {url} with session: {session}')
-        r = requests.get(url, cookies=cookies)
+        url = f'https://adventofcode.com/{self.year}/day/{self.day}/input'
+        r = fetch_aoc_content(url=url, log_lvl=self.log_lvl)
         return r.text
 
     def load_input(self):
@@ -130,8 +89,3 @@ class SetupDay(Logger):
         Path.touch(input_path)
         with open(input_path, 'w') as f:
             print(input_content, file=f)
-
-
-if __name__ == '__main__':
-    load_dotenv()
-    SetupDay(log_lvl=WARN)
