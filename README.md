@@ -1,6 +1,6 @@
 ## Utilities for [Advent of code](https://adventofcode.com/) in python
 
-Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today and generates a _very_ basic skeleton for todays task
+Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today and generates a _very_ basic skeleton for todays task. Has flags for selecting another day (or year) if needed.
 
 Set-up using python 3.9
 
