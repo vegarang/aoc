@@ -37,7 +37,7 @@ For more info, see help-text:
   python src/aoc.py --help
 ```
 
-```zsh
+```
 usage: aoc.py [-h] [-v {0,1,2,3}] [-y YEAR] [-d DAY] [-f] [-s]
 
 optional arguments:
