@@ -2,7 +2,7 @@
 
 Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today
 
-Setup using python 3.9
+Set-up using python 3.9
 
 ### Getting started:
 Install dependencies from `requirements.txt` (preferrably in a [virtualenv](https://pypi.org/project/virtualenv/), see [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) if this is new to you):
