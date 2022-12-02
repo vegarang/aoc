@@ -1,6 +1,6 @@
 def load_file():
-    file = open('input.txt', 'r')
-    values = file.readlines()
+    with open('input.txt', 'r') as f:
+        values = f.readlines()
     return values
 
 
