@@ -1,8 +1,8 @@
 ## Utilities for [Advent of code](https://adventofcode.com/) in python
 
-Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today
+Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today and generates a _very_ basic skeleton for todays task. Has flags for selecting another day (or year) if needed.
 
-Setup using python 3.9
+Set-up using python 3.9
 
 ### Getting started:
 Install dependencies from `requirements.txt` (preferably in a [virtualenv](https://pypi.org/project/virtualenv/), see [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) if this is new to you):
