@@ -19,7 +19,7 @@ class GetStars(Logger):
         self.leaderboard_id = os.getenv('LEADERBOARD_ID', None)
         self.member_id = os.getenv('MEMBER_ID', None)
         self.leaderboard = {}
-        self.stars = {}
+        self.stars = dict()
         self.name = None
 
         self.fetch_leaderboard()
@@ -50,12 +50,14 @@ class GetStars(Logger):
         for day, stars_in_day in current_leaderboard['completion_day_level'].items():
             stars[day] = {
                 'first': self.bool_to_symbol('1' in stars_in_day),
-                'second': self.bool_to_symbol('1' in stars_in_day)
+                'second': self.bool_to_symbol('2' in stars_in_day)
             }
         self.stars = stars
 
     def generate_stars_md(self):
+        sorted_keys = sorted(iter(self.stars))
         with open(get_stars_md_path(year=self.year), 'w') as f:
             print(md_start.format(self.name), file=f)
-            for day, stars in self.stars.items():
+            for day in sorted_keys:
+                stars = self.stars.get(day)
                 print(md_row.format(day, stars.get('first', u'❌'), stars.get('second', u'❌')), file=f)
