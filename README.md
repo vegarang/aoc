@@ -1,6 +1,6 @@
 ## Utilities for [Advent of code](https://adventofcode.com/) in python
 
-Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today and generates a _very_ basic skeleton for todays task. Has flags for selecting another day (or year) if needed.
+Inspired by [caderek/aocrunner](https://github.com/caderek/aocrunner), but not nearly as fancy. This just fetches the input for today and generates a _very_ basic skeleton for todays task. Has flags for selecting another day (or year) if needed. Can also generate a .md of which stars you've gotten so far in a given year. 
 
 Set-up using python 3.9
 
@@ -37,7 +37,7 @@ For more info, see help-text:
   python src/aoc.py --help
 ```
 
-```zsh
+```
 usage: aoc.py [-h] [-v {0,1,2,3}] [-y YEAR] [-d DAY] [-f] [-s]
 
 optional arguments:
