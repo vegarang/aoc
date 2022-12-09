@@ -67,10 +67,20 @@ class SetupDay(Logger):
             with open(main_py_path, 'w') as f:
                 print(self.get_template(), file=f)
 
+    def make_test_input_file(self):
+        today_path = self.get_today_path()
+        test_input_path = Path(today_path, 'test_input.txt')
+        if test_input_path.exists() and test_input_path.is_file():
+            self.warn('Today\'s test_input.txt already exists, not creating')
+        else:
+            self.debug('Making test_input.txt now')
+            Path.touch(test_input_path)
+
     def setup_skeleton(self):
         self.make_year_folder()
         self.make_day_folder()
         self.make_main_py_file()
+        self.make_test_input_file()
 
     def fetch_input_content(self):
         url = f'https://adventofcode.com/{self.year}/day/{self.day}/input'
